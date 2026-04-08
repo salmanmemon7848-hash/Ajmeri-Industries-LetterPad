@@ -138,6 +138,7 @@ function App() {
                 formData={formData}
                 language={language}
                 translations={t}
+                signatureUrl={signatureUrl}
               />
             </div>
           </div>

@@ -10,7 +10,7 @@ function formatDate(dateString) {
   return `${day}/${month}/${year}`;
 }
 
-function LetterPreview({ formData, language, translations }) {
+function LetterPreview({ formData, language, translations, signatureUrl }) {
   if (!formData.to && !formData.subject && !formData.description) {
     return (
       <div className="flex items-center justify-center h-full text-gray-400">
@@ -64,7 +64,6 @@ function LetterPreview({ formData, language, translations }) {
       {/* ENDING BLOCK - SEPARATE DIV */}
       <div className="section ending-section" style={{ marginTop: '20px', marginBottom: '10px' }}>
         <div>{translations.thanks}</div>
-        <div>{translations.asterisk}</div>
       </div>
 
       {/* FOOTER BLOCK - BOTTOM RIGHT */}
@@ -80,14 +79,21 @@ function LetterPreview({ formData, language, translations }) {
           {translations.authorizedSignatory}
         </div>
         
-        {/* Signature and Stamp placeholder for preview */}
-        <div className="signature-stamp-placeholder" style={{ 
-          marginTop: '20px',
-          fontSize: '12px',
-          color: '#999'
-        }}>
-          [Signature & Stamp will appear here in PDF]
-        </div>
+        {/* Signature and Stamp Image */}
+        {signatureUrl && (
+          <img 
+            src={signatureUrl} 
+            alt="Signature & Stamp" 
+            style={{ 
+              position: 'absolute',
+              bottom: '30px',
+              right: '40px',
+              width: '120px',
+              maxHeight: '80px',
+              objectFit: 'contain'
+            }}
+          />
+        )}
       </div>
     </div>
   );

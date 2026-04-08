@@ -58,6 +58,16 @@ body {
   position: relative;
 }
 
+/* Signature and Stamp image */
+.signature-stamp-image {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  width: 120px;
+  max-height: 80px;
+  object-fit: contain;
+}
+
 @media (max-width: 768px) {
   .letter-page {
     width: 100%;

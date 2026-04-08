@@ -2,16 +2,6 @@ import html2pdf from 'html2pdf.js';
 import { COMPANY } from '../config/company';
 import { translations } from '../config/translations';
 
-// Format date for display
-function formatDate(dateString) {
-  if (!dateString) return '___';
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
-
 export async function generateLetterPDF(formData, signatureUrl, stampUrl, language = 'en') {
   const t = translations[language];
   
@@ -25,36 +15,27 @@ export async function generateLetterPDF(formData, signatureUrl, stampUrl, langua
   // Clone the element to modify for PDF
   const clone = element.cloneNode(true);
   
-  // Add signature and stamp images if available
-  if (signatureUrl || stampUrl) {
-    const placeholder = clone.querySelector('.signature-stamp-placeholder');
-    if (placeholder) {
-      placeholder.innerHTML = '';
-      placeholder.style.position = 'relative';
-      placeholder.style.height = '80px';
-      placeholder.style.marginTop = '20px';
-      
-      if (signatureUrl) {
-        const sigImg = document.createElement('img');
-        sigImg.src = signatureUrl;
-        sigImg.style.position = 'absolute';
-        sigImg.style.right = '60px';
-        sigImg.style.top = '0';
-        sigImg.style.height = '60px';
-        sigImg.style.width = 'auto';
-        placeholder.appendChild(sigImg);
+  // Add signature and stamp image if available
+  if (signatureUrl) {
+    const footerSection = clone.querySelector('.footer-section');
+    if (footerSection) {
+      // Remove any existing signature image
+      const existingImg = footerSection.querySelector('img');
+      if (existingImg) {
+        existingImg.remove();
       }
       
-      if (stampUrl) {
-        const stampImg = document.createElement('img');
-        stampImg.src = stampUrl;
-        stampImg.style.position = 'absolute';
-        stampImg.style.right = '0';
-        stampImg.style.top = '0';
-        stampImg.style.height = '80px';
-        stampImg.style.width = '80px';
-        placeholder.appendChild(stampImg);
-      }
+      // Create new signature image
+      const sigImg = document.createElement('img');
+      sigImg.src = signatureUrl;
+      sigImg.alt = 'Signature & Stamp';
+      sigImg.style.position = 'absolute';
+      sigImg.style.bottom = '30px';
+      sigImg.style.right = '40px';
+      sigImg.style.width = '120px';
+      sigImg.style.maxHeight = '80px';
+      sigImg.style.objectFit = 'contain';
+      footerSection.appendChild(sigImg);
     }
   }
 
