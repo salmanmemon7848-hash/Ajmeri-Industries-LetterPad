@@ -14,15 +14,6 @@ body {
   background: #f5f5f5;
 }
 
-/* Page container - A4 size */
-.page {
-  width: 800px;
-  margin: auto;
-  padding: 60px;
-  position: relative;
-  font-family: "Times New Roman", serif;
-}
-
 /* Letter page container */
 .letter-page {
   width: 210mm;
@@ -37,6 +28,12 @@ body {
   position: relative;
 }
 
+/* Content sections with left/right margins */
+.content {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
 /* Section spacing */
 .section {
   margin-bottom: 15px;
@@ -47,10 +44,21 @@ body {
   padding: 0;
 }
 
-/* Date section - Right aligned */
+/* Date section - Right aligned with proper spacing */
 .date-section {
   text-align: right;
-  margin: 20px 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* To section - Bold content */
+.to-section {
+  margin-bottom: 15px;
+  white-space: pre-line;
+}
+
+.to-section strong {
+  font-weight: bold;
 }
 
 /* Subject styling */
@@ -59,31 +67,42 @@ body {
   margin: 15px 0;
 }
 
-/* Body text styling - Left aligned with proper margins */
+/* Greeting section */
+.greeting-section {
+  margin-bottom: 15px;
+}
+
+/* Description/Body text - Center aligned */
 .body-section {
   white-space: pre-wrap;
   word-wrap: break-word;
   line-height: 1.6;
-  text-align: left;
-  margin: 0 60px;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-/* Footer section - Fixed at bottom right */
+/* Thank you - Center aligned */
+.ending-section {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+/* Footer section - Fixed at bottom right, balanced */
 .footer-section {
   position: absolute;
-  bottom: 40px;
-  right: 40px;
-  text-align: right;
+  bottom: 80px;
+  right: 80px;
+  text-align: left;
 }
 
 /* Signature and Stamp image */
 .signature-stamp-image {
-  position: absolute;
-  bottom: 30px;
-  right: 40px;
+  margin-top: 10px;
   width: 120px;
   max-height: 80px;
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 /* Responsive design */
@@ -94,8 +113,14 @@ body {
     min-height: auto;
   }
   
-  .body-section {
-    margin: 0 20px;
+  .content {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .footer-section {
+    right: 40px;
+    bottom: 60px;
   }
 }
 

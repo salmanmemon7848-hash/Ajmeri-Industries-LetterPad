@@ -24,56 +24,58 @@ function LetterPreview({ formData, language, translations, signatureUrl }) {
       {/* HEADER BLOCK */}
       <Letterhead />
 
-      {/* DATE BLOCK - RIGHT ALIGNED */}
+      {/* DATE BLOCK - RIGHT ALIGNED WITH PROPER SPACING */}
       <div className="section date-section">
         {translations.date}: {formatDate(formData.date)}
       </div>
 
-      {/* TO BLOCK */}
-      <div className="section to-section" style={{ marginBottom: '15px', whiteSpace: 'pre-line' }}>
-        <div>{translations.toPrefix}</div>
-        {formData.to && <div>{formData.to}</div>}
-        {formData.bankName && <div>{formData.bankName}</div>}
-        {formData.branchName && <div>{formData.branchName}</div>}
+      {/* CONTENT BLOCK - WITH LEFT/RIGHT MARGINS */}
+      <div className="content">
+        {/* TO BLOCK - BOLD CONTENT */}
+        <div className="section to-section">
+          <div>{translations.toPrefix}</div>
+          {formData.to && <div><strong>{formData.to}</strong></div>}
+          {formData.bankName && <div>{formData.bankName}</div>}
+          {formData.branchName && <div>{formData.branchName}</div>}
+        </div>
+
+        {/* SUBJECT BLOCK - BOLD */}
+        <div className="section subject-section">
+          {translations.subjectPrefix} {formData.subject || '___'}
+        </div>
+
+        {/* GREETING BLOCK */}
+        <div className="section greeting-section">
+          {translations.greeting}
+        </div>
+
+        {/* DESCRIPTION BLOCK - CENTER ALIGNED */}
+        <div 
+          className="section body-section" 
+          style={{ 
+            whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word'
+          }}
+        >
+          {formData.description || ''}
+        </div>
+
+        {/* THANK YOU BLOCK - CENTER ALIGNED */}
+        <div className="section ending-section">
+          <div>{translations.thanks}</div>
+        </div>
       </div>
 
-      {/* SUBJECT BLOCK - BOLD */}
-      <div className="section subject-section">
-        {translations.subjectPrefix} {formData.subject || '___'}
-      </div>
-
-      {/* GREETING BLOCK */}
-      <div className="section greeting-section" style={{ marginBottom: '10px' }}>
-        {translations.greeting}
-      </div>
-
-      {/* BODY BLOCK - LEFT ALIGNED WITH MARGINS */}
-      <div 
-        className="section body-section" 
-        style={{ 
-          whiteSpace: 'pre-wrap',
-          wordWrap: 'break-word',
-          lineHeight: '1.6'
-        }}
-      >
-        {formData.description || ''}
-      </div>
-
-      {/* ENDING BLOCK */}
-      <div className="section ending-section" style={{ marginTop: '20px', marginBottom: '10px' }}>
-        <div>{translations.thanks}</div>
-      </div>
-
-      {/* FOOTER BLOCK - FIXED AT BOTTOM RIGHT */}
+      {/* FOOTER BLOCK - FIXED AT BOTTOM RIGHT, BALANCED */}
       <div className="footer-section">
         <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
           {translations.forCompany} {COMPANY.name}{language === 'en' ? ',' : ''}
         </div>
-        <div style={{ fontSize: '14px', marginBottom: '60px' }}>
+        <div style={{ fontSize: '14px' }}>
           {translations.authorizedSignatory}
         </div>
         
-        {/* Signature and Stamp Image */}
+        {/* Signature and Stamp Image - BELOW TEXT */}
         {signatureUrl && (
           <img 
             src={signatureUrl} 
