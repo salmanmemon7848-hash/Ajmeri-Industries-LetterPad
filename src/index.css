@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global page styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Times New Roman', Georgia, serif;
+  background: #f5f5f5;
+}
+
+/* Letter page container */
+.letter-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 12pt;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Section spacing - NO margins on paragraphs */
+.section {
+  margin-bottom: 15px;
+}
+
+.section p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Subject styling */
+.subject-section {
+  font-weight: bold;
+}
+
+/* Body text styling */
+.body-section {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* Footer section */
+.footer-section {
+  margin-top: 40px;
+  text-align: right;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .letter-page {
+    width: 100%;
+    padding: 10mm;
+    min-height: auto;
+  }
+}
+
+/* Print styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  .letter-page,
+  .letter-page * {
+    visibility: visible;
+  }
+  
+  .letter-page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20mm;
+    box-shadow: none;
+  }
+}
