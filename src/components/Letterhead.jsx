@@ -2,54 +2,49 @@ import { COMPANY } from '../config/company';
 
 function Letterhead() {
   return (
-    <div style={{ borderBottom: '3px double #333', paddingBottom: '15px', marginBottom: '20px' }}>
-      {/* Top Row: GST Left, Mobile Right */}
-      <div style={{ 
+    <div className="header" style={{ textAlign: 'center', marginBottom: '20px' }}>
+      {/* TOP LINE: GST Left, Mobile Right */}
+      <div className="header-top" style={{ 
         display: 'flex', 
         justifyContent: 'space-between', 
-        alignItems: 'center',
-        marginBottom: '12px',
         fontSize: '14px',
+        padding: '0 10px',
+        marginBottom: '10px'
+      }}>
+        <div style={{ textAlign: 'left', fontWeight: '600' }}>
+          GST NO. - {COMPANY.gstNo}
+        </div>
+        <div style={{ textAlign: 'right', fontWeight: '600' }}>
+          MOB NO. - {COMPANY.mobile}
+        </div>
+      </div>
+
+      {/* COMPANY NAME - Center, Big, Bold */}
+      <div className="company-name" style={{ 
+        fontSize: '40px', 
+        fontWeight: 'bold',
+        marginTop: '10px',
+        letterSpacing: '2px',
         fontFamily: "'Times New Roman', Georgia, serif"
       }}>
-        <div style={{ textAlign: 'left' }}>
-          <span style={{ fontWeight: 'bold' }}>GST NO. - </span>
-          <span>{COMPANY.gstNo}</span>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <span style={{ fontWeight: 'bold' }}>MOB NO. - </span>
-          <span>{COMPANY.mobile}</span>
-        </div>
+        {COMPANY.name}
       </div>
-      
-      {/* Company Name - Centered */}
-      <div style={{ 
-        textAlign: 'center', 
-        margin: '15px 0 10px 0'
-      }}>
-        <h1 style={{ 
-          fontSize: '36px', 
-          fontWeight: 'bold', 
-          fontFamily: "'Times New Roman', Georgia, serif",
-          letterSpacing: '2px',
-          margin: '0'
-        }}>
-          {COMPANY.name}
-        </h1>
-      </div>
-      
-      {/* Address - Centered */}
-      <div style={{ 
-        textAlign: 'center', 
-        marginBottom: '10px',
+
+      {/* ADDRESS - Center, Smaller */}
+      <div className="address" style={{ 
         fontSize: '16px',
+        marginTop: '5px',
         fontFamily: "'Times New Roman', Georgia, serif",
         color: '#333'
       }}>
-        <p style={{ margin: '0' }}>
-          {COMPANY.address}
-        </p>
+        {COMPANY.address}
       </div>
+
+      {/* DIVIDER LINE */}
+      <div className="divider" style={{ 
+        borderTop: '1px solid black',
+        marginTop: '10px'
+      }}></div>
     </div>
   );
 }
