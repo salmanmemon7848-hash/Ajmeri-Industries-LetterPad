@@ -88,17 +88,18 @@ body {
   margin-bottom: 15px;
 }
 
-/* Footer section - Fixed at bottom right, balanced */
+/* Footer section - Normal flow, right aligned */
 .footer-section {
-  position: absolute;
-  bottom: 80px;
-  right: 80px;
-  text-align: left;
+  margin-top: 40px;
+  text-align: right;
 }
 
-/* Signature and Stamp image */
+/* Signature and Stamp image - Normal flow below text */
 .signature-stamp-image {
+  display: block;
   margin-top: 10px;
+  margin-left: auto;
+  margin-right: 0;
   width: 120px;
   max-height: 80px;
   object-fit: contain;

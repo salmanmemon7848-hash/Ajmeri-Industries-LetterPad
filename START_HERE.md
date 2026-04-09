@@ -42,13 +42,7 @@ This enables:
 5. **Create buckets**: 
    - Storage → New bucket: `signatures` (public)
    - Storage → New bucket: `stamps` (public)
-6. **Get credentials**: Settings → API → Copy URL and anon key
-7. **Create .env file** in `ajmeri-letterpad` folder:
 
-```env
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key-here
-```
 
 8. **Restart app**: Stop server (Ctrl+C), then `npm run dev`
 
