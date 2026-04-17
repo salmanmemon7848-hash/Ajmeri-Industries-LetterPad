@@ -15,27 +15,66 @@ export async function generateLetterPDF(formData, signatureUrl, stampUrl, langua
   // Clone the element to modify for PDF
   const clone = element.cloneNode(true);
   
-  // Add signature and stamp image if available
-  if (signatureUrl) {
+  // Ensure colors are preserved in PDF output
+  clone.style.webkitPrintColorAdjust = 'exact';
+  clone.style.printColorAdjust = 'exact';
+  
+  // Add signature and stamp images if available
+  if (signatureUrl || stampUrl) {
     const footerSection = clone.querySelector('.footer-section');
     if (footerSection) {
-      // Remove any existing signature image
-      const existingImg = footerSection.querySelector('img');
-      if (existingImg) {
-        existingImg.remove();
+      // Remove any existing images
+      const existingImgs = footerSection.querySelectorAll('img');
+      existingImgs.forEach(img => img.remove());
+      
+      // Create container for right-aligned footer
+      const footerContainer = document.createElement('div');
+      footerContainer.style.textAlign = 'right';
+      footerContainer.style.display = 'flex';
+      footerContainer.style.flexDirection = 'column';
+      footerContainer.style.alignItems = 'flex-end';
+      footerContainer.style.gap = '5px';
+      
+      // Add stamp first (appears to the left)
+      if (stampUrl) {
+        const stampImg = document.createElement('img');
+        stampImg.src = stampUrl;
+        stampImg.alt = 'Company Stamp';
+        stampImg.className = 'stamp-image';
+        stampImg.style.display = 'inline-block';
+        stampImg.style.width = '100px';
+        stampImg.style.maxHeight = '100px';
+        stampImg.style.objectFit = 'contain';
+        stampImg.style.mixBlendMode = 'multiply';
+        stampImg.style.marginRight = '15px';
+        footerContainer.appendChild(stampImg);
       }
       
-      // Create new signature image
-      const sigImg = document.createElement('img');
-      sigImg.src = signatureUrl;
-      sigImg.alt = 'Signature & Stamp';
-      sigImg.style.position = 'absolute';
-      sigImg.style.bottom = '30px';
-      sigImg.style.right = '40px';
-      sigImg.style.width = '120px';
-      sigImg.style.maxHeight = '80px';
-      sigImg.style.objectFit = 'contain';
-      footerSection.appendChild(sigImg);
+      // Add signature image (DIRECTLY above text, 5px gap)
+      if (signatureUrl) {
+        const sigImg = document.createElement('img');
+        sigImg.src = signatureUrl;
+        sigImg.alt = 'Signature';
+        sigImg.className = 'signature-stamp-image';
+        sigImg.style.display = 'block';
+        sigImg.style.marginBottom = '5px';
+        sigImg.style.width = '120px';
+        sigImg.style.maxHeight = '80px';
+        sigImg.style.objectFit = 'contain';
+        sigImg.style.mixBlendMode = 'multiply';
+        footerContainer.appendChild(sigImg);
+      }
+      
+      // Add footer text
+      const footerText1 = footerSection.querySelector('div:first-child');
+      const footerText2 = footerSection.querySelector('div:last-child');
+      
+      if (footerText1) footerContainer.appendChild(footerText1);
+      if (footerText2) footerContainer.appendChild(footerText2);
+      
+      // Clear footer and add new container
+      footerSection.innerHTML = '';
+      footerSection.appendChild(footerContainer);
     }
   }
 

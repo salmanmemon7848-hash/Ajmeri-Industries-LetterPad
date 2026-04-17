@@ -139,6 +139,7 @@ function App() {
                 language={language}
                 translations={t}
                 signatureUrl={signatureUrl}
+                stampUrl={stampUrl}
               />
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { removeWhiteBackground, fileToBase64 } from '../utils/imageHelper';
 
 function SignatureStampManager({ onUpload }) {
   const [imageUrl, setImageUrl] = useState(null);
@@ -32,21 +33,23 @@ function SignatureStampManager({ onUpload }) {
     setUploading(true);
 
     try {
+      // Remove white background first for cleaner signature
+      let processedFile = file;
+      try {
+        const processedBlob = await removeWhiteBackground(file);
+        processedFile = new File([processedBlob], file.name.replace(/\.[^.]+$/, '.png'), { type: 'image/png' });
+      } catch (processError) {
+        console.warn('Background removal failed, using original image:', processError);
+        // Continue with original file if processing fails
+      }
+      
       // Convert to base64 and save to localStorage
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result;
-        setImageUrl(base64String);
-        localStorage.setItem('ajmeri_signature_stamp', base64String);
-        onUpload(base64String);
-        setUploading(false);
-        alert('Signature & Stamp uploaded successfully! It will be used in all letters.');
-      };
-      reader.onerror = () => {
-        alert('Failed to upload image. Please try again.');
-        setUploading(false);
-      };
-      reader.readAsDataURL(file);
+      const base64String = await fileToBase64(processedFile);
+      setImageUrl(base64String);
+      localStorage.setItem('ajmeri_signature_stamp', base64String);
+      onUpload(base64String);
+      setUploading(false);
+      alert('Signature & Stamp uploaded successfully! It will be used in all letters.');
     } catch (error) {
       console.error('Error uploading image:', error);
       alert('Failed to upload image. Please try again.');
